@@ -1,0 +1,25 @@
+{
+  "name": "calendarconverter",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IchanP/CalendarConverter.git"
+  },
+  "keywords": [],
+  "author": "IchanP",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IchanP/CalendarConverter/issues"
+  },
+  "homepage": "https://github.com/IchanP/CalendarConverter#readme",
+  "devDependencies": {
+    "@lnu/eslint-config": "^1.1.10",
+    "eslint": "^8.49.0"
+  }
+}
