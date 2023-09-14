@@ -11,13 +11,13 @@ class TemporalConverter {
    * @returns {string} - Returns the converted year in "YYYY BCE/CE" format.
    */
   KokiToGregorian (year) {
-    const reducedYears = year - 659
+    const reducedYears = year - 660
     let gregorianYear = reducedYears
-    if (reducedYears <= 0) {
-      const shiftedYears = Math.abs(reducedYears) - 1 // This is necessary as "0" does not exist in the Gregorian Calendar
-      gregorianYear = shiftedYears + 'BCE'
-    } else if (reducedYears > 0) {
-      gregorianYear = reducedYears + 'CE'
+    if (reducedYears < 0) {
+      gregorianYear = Math.abs(reducedYears) + 'BCE'
+    } else if (reducedYears >= 0) {
+      const shiftedYears = reducedYears + 1 // This is necessary as "0" does not exist in the Gregorian Calendar
+      gregorianYear = shiftedYears + 'CE'
     }
     return gregorianYear
   }
