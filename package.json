@@ -1,7 +1,7 @@
 {
-  "name": "calendarconverter",
+  "name": "temporalconverter",
   "version": "0.0.0",
-  "description": "",
+  "description": "CalendarConvert is a Javascript module for converting dates between different calendars.",
   "main": "index.js",
   "type": "module",
   "scripts": {
