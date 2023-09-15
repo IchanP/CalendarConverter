@@ -7,35 +7,42 @@ class TemporalConverter {
    *
    * Kōki information: https://en.wikipedia.org/wiki/Japanese_imperial_year .
    *
-   * @param {number} year - The Japanese Imperial Year in number format.
-   * @returns {string} - Returns the converted year in "YYYY BCE/CE" format.
+   * @param {number} kokiYear - The Japanese Imperial Year in number format.
+   * @returns {string} - Returns the converted year in "YYYY BCE/CE" format or an empty string.
    */
-  KokiToFormattedGregorian (year) {
-    if (!year) {
-      return NaN
+  KokiToFormattedGregorian (kokiYear) {
+    try {
+      const yearsAheadOfGregorian = 660
+      if (typeof kokiYear !== 'number') {
+        throw new Error('Expected number as argument but received ' + typeof kokiYear)
+      }
+      const gregorianYear = kokiYear - yearsAheadOfGregorian
+      return gregorianYear < 0 ? this.#KokiToBCE(gregorianYear) : this.#KokiToCe(gregorianYear)
+    } catch (error) {
+      console.error(error)
+      return ''
     }
-    const reducedYears = year - 660
-    return reducedYears < 0 ? this.#KokiToBCE(reducedYears) : this.#KokiToCe(reducedYears)
   }
 
   /**
    * Handles calculation if Gregorian Year is BCE.
    *
-   * @param {number} reducedYears - Negative value of Gregorian Years.
+   * @param {number} negativeGregorianYear - Negative value of Gregorian Years.
    * @returns {string} - Returns the year in "YYYY BCE" format.
    */
-  #KokiToBCE (reducedYears) {
-    return Math.abs(reducedYears) + ' BCE'
+  #KokiToBCE (negativeGregorianYear) {
+    return Math.abs(negativeGregorianYear) + ' BCE'
   }
 
   /**
    * Handles calculation if Gregorian Year is CE.
    *
-   * @param {string} reducedYears - Positive value of Gregorian Years.
+   * @param {string} positiveGregorianYear - Positive value of Gregorian Years.
    * @returns {string} - Returns the year in "YYYY CE" format.
    */
-  #KokiToCe (reducedYears) {
-    return (reducedYears + 1) + ' CE'
+  #KokiToCe (positiveGregorianYear) {
+    const startFromOne = 1 // Gregorian Calendar starts from 1
+    return (positiveGregorianYear + startFromOne) + ' CE'
   }
 }
 
