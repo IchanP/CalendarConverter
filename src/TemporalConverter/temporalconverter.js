@@ -15,14 +15,28 @@ class TemporalConverter {
       return NaN
     }
     const reducedYears = year - 660
-    let gregorianYear = reducedYears
-    if (reducedYears < 0) {
-      gregorianYear = Math.abs(reducedYears) + 'BCE'
-    } else if (reducedYears >= 0) {
-      const shiftedYears = reducedYears + 1 // This is necessary as "0" does not exist in the Gregorian Calendar
-      gregorianYear = shiftedYears + 'CE'
-    }
-    return gregorianYear
+    return reducedYears < 0 ? this.#KokiToBCE(reducedYears) : this.#KokiToCe(reducedYears)
+  }
+
+  /**
+   * Handles calculation if Gregorian Year is BCE.
+   *
+   * @param {number} reducedYears - Negative value of Gregorian Years.
+   * @returns {string} - Returns the year in "YYYY BCE" format.
+   */
+  #KokiToBCE (reducedYears) {
+    return Math.abs(reducedYears) + 'BCE'
+  }
+
+  /**
+   * Handles calculation if Gregorian Year is CE.
+   *
+   * @param {string} reducedYears - Positive value of Gregorian Years.
+   * @returns {string} - Returns the year in "YYYY CE" format.
+   */
+  #KokiToCe (reducedYears) {
+    const shiftedYears = reducedYears + 1 // This is necessary as "0" does not exist in the Gregorian Calendar
+    return shiftedYears + 'CE'
   }
 }
 
