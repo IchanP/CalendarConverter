@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "node index.js"
+    "test": "set \"NODE_OPTIONS=--experimental-vm-modules\" && npx jest"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,8 @@
   "homepage": "https://github.com/IchanP/CalendarConverter#readme",
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.10",
-    "eslint": "^8.49.0"
+    "@types/jest": "^29.5.4",
+    "eslint": "^8.49.0",
+    "jest": "^29.7.0"
   }
 }

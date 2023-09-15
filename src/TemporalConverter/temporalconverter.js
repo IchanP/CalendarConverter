@@ -10,7 +10,7 @@ class TemporalConverter {
    * @param {number} year - The Japanese Imperial Year in number format.
    * @returns {string} - Returns the converted year in "YYYY BCE/CE" format.
    */
-  KokiToGregorian (year) {
+  KokiToFormattedGregorian (year) {
     if (!year) {
       return NaN
     }
@@ -25,7 +25,7 @@ class TemporalConverter {
    * @returns {string} - Returns the year in "YYYY BCE" format.
    */
   #KokiToBCE (reducedYears) {
-    return Math.abs(reducedYears) + 'BCE'
+    return Math.abs(reducedYears) + ' BCE'
   }
 
   /**
@@ -35,7 +35,7 @@ class TemporalConverter {
    * @returns {string} - Returns the year in "YYYY CE" format.
    */
   #KokiToCe (reducedYears) {
-    return (reducedYears + 1) + 'CE'
+    return (reducedYears + 1) + ' CE'
   }
 }
 
