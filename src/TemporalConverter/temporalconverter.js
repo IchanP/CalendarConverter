@@ -11,6 +11,9 @@ class TemporalConverter {
    * @returns {string} - Returns the converted year in "YYYY BCE/CE" format.
    */
   KokiToGregorian (year) {
+    if (!year) {
+      return NaN
+    }
     const reducedYears = year - 660
     let gregorianYear = reducedYears
     if (reducedYears < 0) {
