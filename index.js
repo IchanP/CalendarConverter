@@ -1,3 +1,3 @@
-import TemporalConverter from './src/TemporalConverter/temporalconverter.js'
+import temporalConverter from './src/TemporalConverter/temporalconverter'
 
-export default TemporalConverter
+export default temporalConverter

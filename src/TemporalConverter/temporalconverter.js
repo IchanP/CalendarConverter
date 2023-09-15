@@ -26,4 +26,6 @@ class TemporalConverter {
   }
 }
 
-export default TemporalConverter
+const temporalConverter = new TemporalConverter()
+
+export default temporalConverter
