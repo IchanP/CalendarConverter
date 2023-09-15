@@ -35,8 +35,7 @@ class TemporalConverter {
    * @returns {string} - Returns the year in "YYYY CE" format.
    */
   #KokiToCe (reducedYears) {
-    const shiftedYears = reducedYears + 1 // This is necessary as "0" does not exist in the Gregorian Calendar
-    return shiftedYears + 'CE'
+    return (reducedYears + 1) + 'CE'
   }
 }
 
