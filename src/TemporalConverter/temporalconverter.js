@@ -7,21 +7,50 @@ class TemporalConverter {
    *
    * Kōki information: https://en.wikipedia.org/wiki/Japanese_imperial_year .
    *
-   * @param {number} kokiYear - The Japanese Imperial Year in number format.
+   * @param {number} kokiYear - The Japanese Imperial Year in integer format.
    * @returns {string} - Returns the converted year in "YYYY BCE/CE" format or an empty string.
    */
   KokiToFormattedGregorian (kokiYear) {
     try {
-      if (typeof kokiYear !== 'number' || !Number.isInteger(kokiYear)) {
-        throw new Error('Expected number as argument but received ' + typeof kokiYear)
-      }
+      this.#numberVerifier(kokiYear)
       const yearsAheadOfGregorian = 660
-      const gregorianYear = kokiYear - yearsAheadOfGregorian
-      return gregorianYear < 0 ? this.#KokiToBCE(gregorianYear) : this.#KokiToCe(gregorianYear)
+      const gregorianFromKoki = kokiYear - yearsAheadOfGregorian
+      return gregorianFromKoki < 0 ? this.#KokiToBCE(gregorianFromKoki) : this.#KokiToCe(gregorianFromKoki)
     } catch (error) {
       console.error(error)
       return ''
     }
+  }
+
+  /**
+   * Converts from the Gregorian Calendar to Kōki, Japanese Imperial Year.
+   *
+   * Gregorian Calendar information: https://en.wikipedia.org/wiki/Gregorian_calendar .
+   *
+   * @param {number} gregorianYear - The Gregorian year in integer format.
+   * @param {string} timeEra - The era of the year, accepted args: "BCE/CE/BC/AD".
+   * @returns {string} - Returns the converted year in "Kōki YYYY", "Pre-Kōki YYYY" format or an empty string.
+   */
+  GregoriantoFormattedKoki (gregorianYear, timeEra) {
+    try {
+      this.#CEVerifier(timeEra)
+      return timeEra === 'BCE' || timeEra === 'BC' ? this.#BeforeHumanEraToKoki(Number(gregorianYear)) : 'Kōki ' + (Number(gregorianYear) + 660)
+    } catch (error) {
+      console.error(error)
+      return ''
+    }
+  }
+
+  /**
+   * Converts Gregorian Calendar BCE/BC to Koki.
+   *
+   * @param {number} bceGregorianYear - The Gregorian Year before the human era.
+   * @returns {string} - Returns the Kōki year in "Pre-Kōki/Kōki YYYY" format.
+   */
+  #BeforeHumanEraToKoki (bceGregorianYear) {
+    const yearsBehindKoki = 660
+    const kokiFromGregorian = -bceGregorianYear + yearsBehindKoki // Negative value of bceGregorianYear
+    return kokiFromGregorian < 0 ? 'Pre-Kōki ' + Math.abs(kokiFromGregorian) : 'Kōki ' + kokiFromGregorian
   }
 
   /**
@@ -44,8 +73,34 @@ class TemporalConverter {
     const startFromOne = 1 // Gregorian Calendar starts from 1
     return (positiveGregorianYear + startFromOne) + ' CE'
   }
-}
 
+  /**
+   * Helper method that verifies that the passed argument is an integer and of number type.
+   *
+   * @param {unknown} toVerify - The variable to verify.
+   * @throws {Error} - Throws an error if the passed argument is not of type number and an integer.
+   */
+  #numberVerifier (toVerify) {
+    if (typeof toVerify !== 'number' || !Number.isInteger(toVerify)) {
+      throw new Error('Expected number as argument but received ' + typeof toVerify)
+    }
+  }
+
+  /**
+   * Verifies that the passed argument is of type string and in BCE/CE format.
+   *
+   * @param {unknown} toVerify - The variable to verify.
+   * @throws {Error} - Throws an error if the passed argument is not of type string and in BCE/CE format.
+   */
+  #CEVerifier (toVerify) {
+    const regex = /(BCE|CE|BC|AD)/
+    if (typeof toVerify !== 'string') {
+      throw new Error('Expected string as argument but received' + typeof toVerify)
+    } else if (!toVerify.match(regex)) {
+      throw new Error('Expected string to match "BCE/CE/AD/BC" format.')
+    }
+  }
+}
 const temporalConverter = new TemporalConverter()
 
 export default temporalConverter
