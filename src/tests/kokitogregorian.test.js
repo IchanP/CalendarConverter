@@ -26,9 +26,9 @@ describe('gregorianCE-to-koki', () => {
     expect(temporalConverter.GregoriantoFormattedKoki('xxxx', 95)).toBe('')
     expect(temporalConverter.GregoriantoFormattedKoki(1400, 'BA')).toBe('')
   })
-  test('return "pre-koki" pre 660 bce/bc', () => {
-    expect(temporalConverter.GregoriantoFormattedKoki(661, 'BC')).toContain('Pre-Kōki')
-    expect(temporalConverter.GregoriantoFormattedKoki(661, 'BCE')).toContain('Pre-Kōki')
+  test('return "pre-koki" pre 661 bce/bc', () => {
+    expect(temporalConverter.GregoriantoFormattedKoki(662, 'BC')).toContain('Pre-Kōki')
+    expect(temporalConverter.GregoriantoFormattedKoki(662, 'BCE')).toContain('Pre-Kōki')
     expect(temporalConverter.GregoriantoFormattedKoki(7000, 'BC')).toContain('Pre-Kōki')
   })
   test('return "Kōki" post 660 bce/bc', () => {
@@ -37,9 +37,9 @@ describe('gregorianCE-to-koki', () => {
     expect(temporalConverter.GregoriantoFormattedKoki(1500, 'AD')).toContain('Kōki')
   })
   test('handles year formatted as string', () => {
-    expect(temporalConverter.GregoriantoFormattedKoki('500', 'BC')).toBe('Kōki 160')
+    expect(temporalConverter.GregoriantoFormattedKoki('500', 'BC')).toBe('Kōki 161')
     expect(temporalConverter.GregoriantoFormattedKoki('1000', 'CE')).toBe('Kōki 1660')
-    expect(temporalConverter.GregoriantoFormattedKoki('661', 'BC')).toBe('Pre-Kōki 1')
+    expect(temporalConverter.GregoriantoFormattedKoki('661', 'BC')).toBe('Kōki 0')
   })
   test('not accept lower case era', () => {
     expect(temporalConverter.GregoriantoFormattedKoki(1000, 'bc')).toBe('')
@@ -48,17 +48,18 @@ describe('gregorianCE-to-koki', () => {
     expect(temporalConverter.GregoriantoFormattedKoki(1000, 'ad')).toBe('')
   })
   test('return correct year in bc/bce', () => {
-    expect(temporalConverter.GregoriantoFormattedKoki(1000, 'BC')).toBe('Pre-Kōki 340')
-    expect(temporalConverter.GregoriantoFormattedKoki(500, 'BC')).toBe('Kōki 160')
-    expect(temporalConverter.GregoriantoFormattedKoki(1, 'BC')).toBe('Kōki 659')
+    expect(temporalConverter.GregoriantoFormattedKoki(1000, 'BC')).toBe('Pre-Kōki 339')
+    expect(temporalConverter.GregoriantoFormattedKoki(500, 'BC')).toBe('Kōki 161')
+    expect(temporalConverter.GregoriantoFormattedKoki(1, 'BC')).toBe('Kōki 660')
     // Run tests again with BCE
-    expect(temporalConverter.GregoriantoFormattedKoki(1000, 'BCE')).toBe('Pre-Kōki 340')
-    expect(temporalConverter.GregoriantoFormattedKoki(500, 'BCE')).toBe('Kōki 160')
-    expect(temporalConverter.GregoriantoFormattedKoki(1, 'BCE')).toBe('Kōki 659')
+    expect(temporalConverter.GregoriantoFormattedKoki(1000, 'BCE')).toBe('Pre-Kōki 339')
+    expect(temporalConverter.GregoriantoFormattedKoki(500, 'BCE')).toBe('Kōki 161')
+    expect(temporalConverter.GregoriantoFormattedKoki(1, 'BCE')).toBe('Kōki 660')
   })
   test('return correct year in ad/ce', () => {
     expect(temporalConverter.GregoriantoFormattedKoki(1000, 'AD')).toBe('Kōki 1660')
     expect(temporalConverter.GregoriantoFormattedKoki(500, 'AD')).toBe('Kōki 1160')
-    expect(temporalConverter.GregoriantoFormattedKoki(1, 'AD')).toBe('Kōki 660')
+    expect(temporalConverter.GregoriantoFormattedKoki(2023, 'AD')).toBe('Kōki 2683')
+    expect(temporalConverter.GregoriantoFormattedKoki(1, 'AD')).toBe('Kōki 661')
   })
 })

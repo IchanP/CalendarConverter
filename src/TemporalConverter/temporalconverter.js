@@ -34,7 +34,7 @@ class TemporalConverter {
   GregoriantoFormattedKoki (gregorianYear, timeEra) {
     try {
       this.#CEVerifier(timeEra)
-      return timeEra === 'BCE' || timeEra === 'BC' ? this.#BeforeHumanEraToKoki(Number(gregorianYear)) : 'Kōki ' + (Number(gregorianYear) + 660)
+      return timeEra === 'BCE' || timeEra === 'BC' ? this.#BeforeCommonEraToKoki(Number(gregorianYear)) : this.#postCommonEraToKoki(Number(gregorianYear))
     } catch (error) {
       console.error(error)
       return ''
@@ -42,13 +42,24 @@ class TemporalConverter {
   }
 
   /**
-   * Converts Gregorian Calendar BCE/BC to Koki.
+   * Converts Gregorian Calendar AD/CE to Kōki.
    *
-   * @param {number} bceGregorianYear - The Gregorian Year before the human era.
+   * @param {number} ceGregorianYear - The Gregorian Year in the common era.
+   * @returns {string} - Returns the Kōki year in "Kōki YYYY" format.
+   */
+  #postCommonEraToKoki (ceGregorianYear) {
+    const yearsBehindKoki = 660 // Gregorian Calendar starts from 1, 1 CE = Kōki 660
+    return 'Kōki ' + (ceGregorianYear + yearsBehindKoki)
+  }
+
+  /**
+   * Converts Gregorian Calendar BCE/BC to Kōki.
+   *
+   * @param {number} bceGregorianYear - The Gregorian Year before the common era.
    * @returns {string} - Returns the Kōki year in "Pre-Kōki/Kōki YYYY" format.
    */
-  #BeforeHumanEraToKoki (bceGregorianYear) {
-    const yearsBehindKoki = 660
+  #BeforeCommonEraToKoki (bceGregorianYear) {
+    const yearsBehindKoki = 661
     const kokiFromGregorian = -bceGregorianYear + yearsBehindKoki // Negative value of bceGregorianYear
     return kokiFromGregorian < 0 ? 'Pre-Kōki ' + Math.abs(kokiFromGregorian) : 'Kōki ' + kokiFromGregorian
   }
