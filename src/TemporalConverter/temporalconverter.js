@@ -12,10 +12,10 @@ class TemporalConverter {
    */
   KokiToFormattedGregorian (kokiYear) {
     try {
-      const yearsAheadOfGregorian = 660
-      if (typeof kokiYear !== 'number') {
+      if (typeof kokiYear !== 'number' || !Number.isInteger(kokiYear)) {
         throw new Error('Expected number as argument but received ' + typeof kokiYear)
       }
+      const yearsAheadOfGregorian = 660
       const gregorianYear = kokiYear - yearsAheadOfGregorian
       return gregorianYear < 0 ? this.#KokiToBCE(gregorianYear) : this.#KokiToCe(gregorianYear)
     } catch (error) {
