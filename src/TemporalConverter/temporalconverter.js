@@ -48,7 +48,7 @@ class TemporalConverter {
    * @returns {string} - Returns the Kōki year in "Kōki YYYY" format.
    */
   #postCommonEraToKoki (ceGregorianYear) {
-    const yearsBehindKoki = 660 // Gregorian Calendar starts from 1, 1 CE = Kōki 660
+    const yearsBehindKoki = 660
     return 'Kōki ' + (ceGregorianYear + yearsBehindKoki)
   }
 
