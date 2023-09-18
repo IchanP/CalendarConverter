@@ -76,11 +76,12 @@ class TemporalConverter {
         this.#numberVerifier(month)
         this.#monthVerifier(month)
       }
+      let formattedJpEra
       if (month) {
-
+        formattedJpEra = this.#toJpEraWrapper.gregorianWithMonthToJpEra(gregorianYearToEra, month)
       }
       if (!month) {
-
+        formattedJpEra = this.#toJpEraWrapper.gregorianWithoutMonthToJpEra(gregorianYearToEra)
       }
       return 'yep'
     } catch (error) {
@@ -123,7 +124,7 @@ class TemporalConverter {
    */
   #monthVerifier (month) {
     if (month < 1 || month > 12) {
-      throw new Error('Expected month to be between 1 and 12, received' + month)
+      throw new Error('Expected month to be between 1 and 12, received ' + month)
     }
   }
 }
