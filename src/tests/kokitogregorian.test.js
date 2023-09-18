@@ -1,14 +1,14 @@
-import temporalConverter from '../TemporalConverter/TemporalConverter'
+import temporalConverter from '../TemporalConverter/temporalconverter'
 
 describe('koki-to-gregorian', () => {
-  test('should return an empty string on falsy argument', () => {
-    expect(temporalConverter.KokiToFormattedGregorian(undefined)).toBe('')
-    expect(temporalConverter.KokiToFormattedGregorian(null)).toBe('')
+  test('should throw error on falsy argument', () => {
+    expect(() => temporalConverter.KokiToFormattedGregorian(undefined)).toThrow()
+    expect(() => temporalConverter.KokiToFormattedGregorian(null)).toThrow()
   })
-  test('should return empty string on wrong type argument', () => {
-    expect(temporalConverter.KokiToFormattedGregorian('this is a string')).toBe('')
-    expect(temporalConverter.KokiToFormattedGregorian(10.6)).toBe('')
-    expect(temporalConverter.KokiToFormattedGregorian(true)).toBe('')
+  test('should throw on wrong type argument', () => {
+    expect(() => temporalConverter.KokiToFormattedGregorian('this is a string')).toThrow()
+    expect(() => temporalConverter.KokiToFormattedGregorian(10.6)).toThrow()
+    expect(() => temporalConverter.KokiToFormattedGregorian(true)).toThrow()
   })
   test('should handle gregorian year 0', () => {
     expect(temporalConverter.KokiToFormattedGregorian(660)).toBe('1 CE')

@@ -1,11 +1,11 @@
-import temporalConverter from '../TemporalConverter/TemporalConverter'
+import temporalConverter from '../TemporalConverter/temporalconverter'
 
 // NOTE Kōki
 describe('gregorianCE-to-koki', () => {
-  test('should returns an emtpy string if format is wrong', () => {
-    expect(temporalConverter.GregorianToFormattedKoki(1995, 'XXX')).toBe('')
-    expect(temporalConverter.GregorianToFormattedKoki('xxxx', 95)).toBe('')
-    expect(temporalConverter.GregorianToFormattedKoki(1400, 'BA')).toBe('')
+  test('should throw error if format is wrong', () => {
+    expect(() => temporalConverter.GregorianToFormattedKoki(1995, 'XXX')).toThrow()
+    expect(() => temporalConverter.GregorianToFormattedKoki('xxxx', 95)).toThrow()
+    expect(() => temporalConverter.GregorianToFormattedKoki(1400, 'BA')).toThrow()
   })
   test('should return "pre-koki" pre 661 bce/bc', () => {
     expect(temporalConverter.GregorianToFormattedKoki(662, 'BC')).toContain('Pre-Kōki')
@@ -22,11 +22,11 @@ describe('gregorianCE-to-koki', () => {
     expect(temporalConverter.GregorianToFormattedKoki('1000', 'CE')).toBe('Kōki 1660')
     expect(temporalConverter.GregorianToFormattedKoki('661', 'BC')).toBe('Kōki 0')
   })
-  test('should not accept lower case era', () => {
-    expect(temporalConverter.GregorianToFormattedKoki(1000, 'bc')).toBe('')
-    expect(temporalConverter.GregorianToFormattedKoki(1000, 'bce')).toBe('')
-    expect(temporalConverter.GregorianToFormattedKoki(1000, 'ce')).toBe('')
-    expect(temporalConverter.GregorianToFormattedKoki(1000, 'ad')).toBe('')
+  test('should throw when given lower case era', () => {
+    expect(() => temporalConverter.GregorianToFormattedKoki(1000, 'bc')).toThrow()
+    expect(() => temporalConverter.GregorianToFormattedKoki(1000, 'bce')).toThrow()
+    expect(() => temporalConverter.GregorianToFormattedKoki(1000, 'ce')).toThrow()
+    expect(() => temporalConverter.GregorianToFormattedKoki(1000, 'ad')).toThrow()
   })
   test('should return correct year in bc/bce', () => {
     expect(temporalConverter.GregorianToFormattedKoki(1000, 'BC')).toBe('Pre-Kōki 339')

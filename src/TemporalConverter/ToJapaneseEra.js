@@ -16,24 +16,29 @@ export class ToJapaneseEra {
    *
    * @param {number} gregorianYear - The Gregorian year.
    * @param {month} month - The month.
-   * @returns {string} - Returns the matching Japanese Era year.
+   * @returns {string} - Returns the matching Japanese Era year or an empty string if no match was found.
    */
   gregorianWithMonthToJpEra (gregorianYear, month) {
     // TODO sort return formatting
     for (const era of this.#listOfEras) {
       // Checks if it's on a year with an era change
       if (era.endYear === gregorianYear && era.endMonth > month) {
+        console.log('end year')
         console.log(era)
         break
       }
       if (era.startYear === gregorianYear && era.startMonth <= month) {
+        console.log('start year')
         console.log(era)
         break
       }
-      //   if (era.startYear >= gregorianYear && gregorianYear <= era.endYear) {
-    //    break
-    //  }
+      if (era.startYear <= gregorianYear && gregorianYear <= era.endYear) {
+        console.log('interval')
+        console.log(era)
+        break
+      }
     }
+    return ''
   }
 
   /**

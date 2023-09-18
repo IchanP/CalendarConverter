@@ -27,16 +27,12 @@ class TemporalConverter {
    * @returns {string} - Returns the converted year in "YYYY BCE/CE" format or an empty string.
    */
   KokiToFormattedGregorian (kokiYear) {
-    try {
-      this.#numberVerifier(kokiYear)
-      const yearsAheadOfGregorian = 660
-      const gregorianFromKoki = kokiYear - yearsAheadOfGregorian
-      return gregorianFromKoki < 0
-        ? this.#toGregorianWrapper.KokiToBCE(gregorianFromKoki)
-        : this.#toGregorianWrapper.KokiToCe(gregorianFromKoki)
-    } catch (error) {
-      return ''
-    }
+    this.#numberVerifier(kokiYear)
+    const yearsAheadOfGregorian = 660
+    const gregorianFromKoki = kokiYear - yearsAheadOfGregorian
+    return gregorianFromKoki < 0
+      ? this.#toGregorianWrapper.KokiToBCE(gregorianFromKoki)
+      : this.#toGregorianWrapper.KokiToCe(gregorianFromKoki)
   }
 
   /**
@@ -46,18 +42,14 @@ class TemporalConverter {
    *
    * @param {number} gregorianYearToKoki - The Gregorian year in integer format.
    * @param {string} timeEra - The era of the year, accepted args: "BCE/CE/BC/AD".
-   * @returns {string} - Returns the converted year in "Kōki YYYY", "Pre-Kōki YYYY" format or an empty string.
+   * @returns {string} - Returns the converted year in "Kōki YYYY", "Pre-Kōki YYYY" format.
    */
   GregorianToFormattedKoki (gregorianYearToKoki, timeEra) {
-    try {
-      this.#CEVerifier(timeEra)
+    this.#CEVerifier(timeEra)
 
-      return timeEra === 'BCE' || timeEra === 'BC'
-        ? this.#toKokiWrapper.preCommonEraToKoki(Number(gregorianYearToKoki))
-        : this.#toKokiWrapper.postCommonEraToKoki(Number(gregorianYearToKoki))
-    } catch (error) {
-      return ''
-    }
+    return timeEra === 'BCE' || timeEra === 'BC'
+      ? this.#toKokiWrapper.preCommonEraToKoki(Number(gregorianYearToKoki))
+      : this.#toKokiWrapper.postCommonEraToKoki(Number(gregorianYearToKoki))
   }
 
   /**
@@ -67,20 +59,16 @@ class TemporalConverter {
    *
    * @param {number} gregorianYearToEra - The Gregorian year in integer format.
    * @param {number} month The month in integer format.
-   * @returns {string} - Returns the Japanese Era in "Name YY" format. Returns an empty string on invalid input.
+   * @returns {string} - Returns the Japanese Era in "Name YY" format.
    */
   GregorianToFormattedJpEra (gregorianYearToEra, month) {
-    try {
-      this.#numberVerifier(gregorianYearToEra)
-      this.#numberVerifier(month)
-      this.#monthVerifier(month)
+    this.#numberVerifier(gregorianYearToEra)
+    this.#numberVerifier(month)
+    this.#monthVerifier(month)
 
-      const formattedJpEra = this.#toJpEraWrapper.gregorianWithMonthToJpEra(gregorianYearToEra, month)
+    const formattedJpEra = this.#toJpEraWrapper.gregorianWithMonthToJpEra(gregorianYearToEra, month)
 
-      return formattedJpEra
-    } catch (error) {
-      return ''
-    }
+    return formattedJpEra
   }
 
   /**
@@ -92,12 +80,8 @@ class TemporalConverter {
    * @returns {Array<string>} - Returns an array of the mathcing Japanese Era years in "Name YY" format. Returns an empty string on invalid input.
    */
   LazyGregorianToFormattedJpEra (gregorianYearToEra) {
-    try {
-      this.#numberVerifier(gregorianYearToEra)
-      return this.#toJpEraWrapper.gregorianWithoutMonthToJpEra(gregorianYearToEra)
-    } catch (error) {
-      return ''
-    }
+    this.#numberVerifier(gregorianYearToEra)
+    return this.#toJpEraWrapper.gregorianWithoutMonthToJpEra(gregorianYearToEra)
   }
 
   /**
