@@ -7,9 +7,6 @@ describe('gregorian-to-jp-era', () => {
     expect(temporalConverter.GregorianToFormattedJpEra(1900, true)).toBe('')
     expect(temporalConverter.GregorianToFormattedJpEra(1900, null)).toBe('')
   })
-  test('should return non-empty string if month is omitted', () => {
-    expect(temporalConverter.GregorianToFormattedJpEra(1900)).not.toBe('')
-  })
   test('should return empty string if month is out of range', () => {
     expect(temporalConverter.GregorianToFormattedJpEra(1900, 0)).toBe('')
     expect(temporalConverter.GregorianToFormattedJpEra(1900, -50)).toBe('')
@@ -17,5 +14,8 @@ describe('gregorian-to-jp-era', () => {
     expect(temporalConverter.GregorianToFormattedJpEra(1900, 13)).toBe('')
     expect(temporalConverter.GregorianToFormattedJpEra(1900, -1)).toBe('')
     expect(temporalConverter.GregorianToFormattedJpEra(1900, -12)).toBe('')
+  })
+  test('should return correct value', () => {
+    expect(temporalConverter.GregorianToFormattedJpEra(1232, 4)).toBe('Jōei 1')
   })
 })

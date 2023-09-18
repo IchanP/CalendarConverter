@@ -66,24 +66,35 @@ class TemporalConverter {
    * Japanese Era information: https://en.wikipedia.org/wiki/Japanese_era_name .
    *
    * @param {number} gregorianYearToEra - The Gregorian year in integer format.
-   * @param {number} [month] The month in integer format, may be omitted.
-   * @returns {string} - Returns the Japanese Era in "Name YY, M Month" format. Or "Name YY" if month is omitted. Returns an empty string on invalid input.
+   * @param {number} month The month in integer format.
+   * @returns {string} - Returns the Japanese Era in "Name YY" format. Returns an empty string on invalid input.
    */
   GregorianToFormattedJpEra (gregorianYearToEra, month) {
     try {
       this.#numberVerifier(gregorianYearToEra)
-      if (month !== undefined) {
-        this.#numberVerifier(month)
-        this.#monthVerifier(month)
-      }
-      let formattedJpEra
-      if (month) {
-        formattedJpEra = this.#toJpEraWrapper.gregorianWithMonthToJpEra(gregorianYearToEra, month)
-      }
-      if (!month) {
-        formattedJpEra = this.#toJpEraWrapper.gregorianWithoutMonthToJpEra(gregorianYearToEra)
-      }
-      return 'yep'
+      this.#numberVerifier(month)
+      this.#monthVerifier(month)
+
+      const formattedJpEra = this.#toJpEraWrapper.gregorianWithMonthToJpEra(gregorianYearToEra, month)
+
+      return formattedJpEra
+    } catch (error) {
+      return ''
+    }
+  }
+
+  /**
+   * Converts from Gregorian Calendar to all matching Japanese Era years.
+   *
+   * Japanese Era information: https://en.wikipedia.org/wiki/Japanese_era_name .
+   *
+   * @param {number} gregorianYearToEra - The gregorian year in integer format.
+   * @returns {Array<string>} - Returns an array of the mathcing Japanese Era years in "Name YY" format. Returns an empty string on invalid input.
+   */
+  LazyGregorianToFormattedJpEra (gregorianYearToEra) {
+    try {
+      this.#numberVerifier(gregorianYearToEra)
+      return this.#toJpEraWrapper.gregorianWithoutMonthToJpEra(gregorianYearToEra)
     } catch (error) {
       return ''
     }
