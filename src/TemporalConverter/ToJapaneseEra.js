@@ -1,3 +1,4 @@
+import { TimeFrame } from './TimeFrame'
 import { japaneseEras } from './japaneseeras'
 /**
  * A wrapper for converting to Japanese Era from various calendars.
@@ -20,25 +21,30 @@ export class ToJapaneseEra {
    */
   gregorianWithMonthToJpEra (gregorianYear, month) {
     // TODO sort return formatting
+    let matchingEra
     for (const era of this.#listOfEras) {
+      if (gregorianYear > new Date().getFullYear()) {
+        matchingEra = this.#listOfEras.slice(-1)[0]
+        break
+      }
       // Checks if it's on a year with an era change
       if (era.endYear === gregorianYear && era.endMonth > month) {
-        console.log('end year')
-        console.log(era)
+        matchingEra = era
         break
       }
       if (era.startYear === gregorianYear && era.startMonth <= month) {
-        console.log('start year')
-        console.log(era)
+        matchingEra = era
         break
       }
-      if (era.startYear <= gregorianYear && gregorianYear <= era.endYear) {
-        console.log('interval')
-        console.log(era)
+      if (era.startYear <= gregorianYear && gregorianYear < era.endYear) {
+        matchingEra = era
         break
       }
     }
-    return ''
+    if (!matchingEra) {
+      throw new Error('Year and month does not match any existing eras')
+    }
+    return matchingEra.name + ' ' + ((gregorianYear - matchingEra.startYear) + 1)
   }
 
   /**
