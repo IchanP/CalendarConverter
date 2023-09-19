@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * Wrapper for time and calendar conversion methods.
@@ -14,12 +14,12 @@ class TemporalConverter {
    */
   KokiToFormattedGregorian (kokiYear) {
     try {
-      this.#numberVerifier(kokiYear);
-      const yearsAheadOfGregorian = 660;
-      const gregorianFromKoki = kokiYear - yearsAheadOfGregorian;
+      this.#numberVerifier(kokiYear)
+      const yearsAheadOfGregorian = 660
+      const gregorianFromKoki = kokiYear - yearsAheadOfGregorian
       return gregorianFromKoki < 0 ? this.#KokiToBCE(gregorianFromKoki) : this.#KokiToCe(gregorianFromKoki)
     } catch (error) {
-      console.error(error);
+      console.error(error)
       return ''
     }
   }
@@ -35,10 +35,10 @@ class TemporalConverter {
    */
   GregoriantoFormattedKoki (gregorianYear, timeEra) {
     try {
-      this.#CEVerifier(timeEra);
+      this.#CEVerifier(timeEra)
       return timeEra === 'BCE' || timeEra === 'BC' ? this.#BeforeCommonEraToKoki(Number(gregorianYear)) : this.#postCommonEraToKoki(Number(gregorianYear))
     } catch (error) {
-      console.error(error);
+      console.error(error)
       return ''
     }
   }
@@ -50,7 +50,7 @@ class TemporalConverter {
    * @returns {string} - Returns the Kōki year in "Kōki YYYY" format.
    */
   #postCommonEraToKoki (ceGregorianYear) {
-    const yearsBehindKoki = 660;
+    const yearsBehindKoki = 660
     return 'Kōki ' + (ceGregorianYear + yearsBehindKoki)
   }
 
@@ -61,8 +61,8 @@ class TemporalConverter {
    * @returns {string} - Returns the Kōki year in "Pre-Kōki/Kōki YYYY" format.
    */
   #BeforeCommonEraToKoki (bceGregorianYear) {
-    const yearsBehindKoki = 661;
-    const kokiFromGregorian = -bceGregorianYear + yearsBehindKoki; // Negative value of bceGregorianYear
+    const yearsBehindKoki = 661
+    const kokiFromGregorian = -bceGregorianYear + yearsBehindKoki // Negative value of bceGregorianYear
     return kokiFromGregorian < 0 ? 'Pre-Kōki ' + Math.abs(kokiFromGregorian) : 'Kōki ' + kokiFromGregorian
   }
 
@@ -83,7 +83,7 @@ class TemporalConverter {
    * @returns {string} - Returns the year in "YYYY CE" format.
    */
   #KokiToCe (positiveGregorianYear) {
-    const startFromOne = 1; // Gregorian Calendar starts from 1
+    const startFromOne = 1 // Gregorian Calendar starts from 1
     return (positiveGregorianYear + startFromOne) + ' CE'
   }
 
@@ -106,7 +106,7 @@ class TemporalConverter {
    * @throws {Error} - Throws an error if the passed argument is not of type string and in BCE/CE format.
    */
   #CEVerifier (toVerify) {
-    const regex = /(BCE|CE|BC|AD)/;
+    const regex = /(BCE|CE|BC|AD)/
     if (typeof toVerify !== 'string') {
       throw new Error('Expected string as argument but received' + typeof toVerify)
     } else if (!toVerify.match(regex)) {
@@ -114,6 +114,6 @@ class TemporalConverter {
     }
   }
 }
-const temporalConverter = new TemporalConverter();
+const temporalConverter = new TemporalConverter()
 
-module.exports = temporalConverter;
+module.exports = temporalConverter
