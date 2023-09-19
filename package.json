@@ -1,7 +1,7 @@
 {
   "name": "temporalconverter",
-  "version": "0.4.1",
-  "description": "CalendarConvert is a Javascript module for converting dates between different calendars.",
+  "version": "0.4.2",
+  "description": "TemporalConverter is a Javascript module for converting dates between different calendars.",
   "main": "index.js",
   "type": "module",
   "exports": {
@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IchanP/CalendarConverter.git"
+    "url": "git+https://github.com/IchanP/TemporalConverter.git"
   },
   "keywords": [],
   "author": "IchanP",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/IchanP/CalendarConverter/issues"
+    "url": "git@github.com:IchanP/TemporalConverter/issues"
   },
-  "homepage": "https://github.com/IchanP/CalendarConverter#readme",
+  "homepage": "git@github.com:IchanP/TemporalConverterr#readme",
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.10",
     "@types/jest": "^29.5.4",

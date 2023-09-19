@@ -32,4 +32,27 @@ describe('gregorian-to-jp-era', () => {
     expect(() => temporalConverter.GregorianToFormattedJpEra(686, 10)).toThrow()
     expect(() => temporalConverter.GregorianToFormattedJpEra(-702, 2)).toThrow()
   })
+  test('lazy should return two eras if year matches start and end year', () => {
+    expect(temporalConverter.LazyGregorianToFormattedJpEra(1046)).toEqual(['Kantoku 3', 'Eishō 1'])
+    expect(temporalConverter.LazyGregorianToFormattedJpEra(2019)).toEqual(['Heisei 31', 'Reiwa 1'])
+    expect(temporalConverter.LazyGregorianToFormattedJpEra(1141)).toEqual(['Hōen 7', 'Eiji 1'])
+  })
+  test('lazy should return single era if year falls in interval', () => {
+    expect(temporalConverter.LazyGregorianToFormattedJpEra(1990)).toEqual(['Heisei 2'])
+    expect(temporalConverter.LazyGregorianToFormattedJpEra(2022)).toEqual(['Reiwa 4'])
+    expect(temporalConverter.LazyGregorianToFormattedJpEra(2023)).toEqual(['Reiwa 5'])
+    expect(temporalConverter.LazyGregorianToFormattedJpEra(1690)).toEqual(['Genroku 3'])
+    expect(temporalConverter.LazyGregorianToFormattedJpEra(2024)).toEqual(['Reiwa 6'])
+  })
+  test('lazy should throw if no era is found', () => {
+    expect(() => temporalConverter.LazyGregorianToFormattedJpEra(659)).toThrow()
+    expect(() => temporalConverter.LazyGregorianToFormattedJpEra(644)).toThrow()
+    expect(() => temporalConverter.LazyGregorianToFormattedJpEra(-500)).toThrow()
+  })
+  test('lazy should return edge years on no continuity', () => {
+    expect(temporalConverter.LazyGregorianToFormattedJpEra(645)).toEqual(['Taika 1'])
+    expect(temporalConverter.LazyGregorianToFormattedJpEra(654)).toEqual(['Hakuchi 5'])
+    expect(temporalConverter.LazyGregorianToFormattedJpEra(686)).toEqual(['Shuchō 1'])
+    expect(temporalConverter.LazyGregorianToFormattedJpEra(701)).toEqual(['Taihō 1'])
+  })
 })

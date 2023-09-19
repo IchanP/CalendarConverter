@@ -47,16 +47,44 @@ export class ToJapaneseEra {
     if (!matchingEra) {
       throw new Error('Year and month does not match any existing eras')
     }
-    return matchingEra.name + ' ' + ((gregorianYear - matchingEra.startYear) + 1)
+    return this.#formatFromGregorian(matchingEra, gregorianYear)
   }
 
   /**
    * Converts from Gregorian to Japanese Era year, excluding month.
    *
    * @param {number} gregorianYear - The Gregorian year.
-   * @returns {Array<string>} - Returns the matching Japanese Era year, if 2 matches will return the year at the start of the Gregorian Year.
+   * @returns {Array<string>} - Returns the matching Japanese years, in
    */
   gregorianWithoutMonthToJpEra (gregorianYear) {
+    const foundEras = this.#listOfEras.filter((era) => {
+      if (era.startYear <= gregorianYear && gregorianYear <= era.endYear) {
+        return era
+      }
+      // Catch Reiwa in the future
+      if (gregorianYear > era.endYear && era.endYear === new Date().getFullYear()) {
+        return era
+      }
+      return undefined
+    })
+    const japaneseDates = []
+    for (const foundEra of foundEras) {
+      japaneseDates.push(this.#formatFromGregorian(foundEra, gregorianYear))
+    }
+    if (japaneseDates.length === 0) {
+      throw new Error('Year does not match any existing eras')
+    }
+    return japaneseDates
+  }
 
+  /**
+   * Formats a TimeFrame object to Japanasee Date from Gregorian year.
+   *
+   * @param {TimeFrame} timeEra - A TimeFrame object to convert to string.
+   * @param {number} gregorianYear - The Gregorian Year to convert from.
+   * @returns {string} - Date in "Name YY" format.
+   */
+  #formatFromGregorian (timeEra, gregorianYear) {
+    return timeEra.name + ' ' + ((gregorianYear - timeEra.startYear) + 1)
   }
 }
