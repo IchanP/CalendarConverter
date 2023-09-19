@@ -20,15 +20,18 @@ export class ToJapaneseEra {
    * @returns {string} - Returns the matching Japanese Era year or an empty string if no match was found.
    */
   gregorianWithMonthToJpEra (gregorianYear, month) {
-    // TODO sort return formatting
     let matchingEra
     for (const era of this.#listOfEras) {
       if (gregorianYear > new Date().getFullYear()) {
         matchingEra = this.#listOfEras.slice(-1)[0]
         break
       }
+      // Catches scenario where the era ends in the same year as it started but the passed month is out of range
+      if ((era.startYear === gregorianYear && era.startYear === era.endYear) && (era.startMonth > month || era.endMonth < month)) {
+        throw new Error('Year and month does not match any existing eras')
+      }
       // Checks if it's on a year with an era change
-      if (era.endYear === gregorianYear && era.endMonth > month) {
+      if ((era.endYear === gregorianYear && era.endMonth > month)) {
         matchingEra = era
         break
       }
@@ -36,7 +39,7 @@ export class ToJapaneseEra {
         matchingEra = era
         break
       }
-      if (era.startYear <= gregorianYear && gregorianYear < era.endYear) {
+      if ((era.startYear <= gregorianYear && gregorianYear < era.endYear)) {
         matchingEra = era
         break
       }
