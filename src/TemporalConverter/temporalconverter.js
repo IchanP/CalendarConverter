@@ -1,21 +1,18 @@
-import { ToKoki } from './ToKoki'
-import { ToGregorian } from './ToGregorian'
-import { ToJapaneseEra } from './ToJapaneseEra'
+import { Koki } from './Koki'
+import { JapaneseEra } from './JapaneseEra'
 
 /**
  * Wrapper for time and calendar conversion methods.
  */
 class TemporalConverter {
-  #toGregorianWrapper
-  #toKokiWrapper
-  #toJpEraWrapper
+  #KokiWrapper
+  #JpEraWrapper
   /**
    * Constructs the field wrappers.
    */
   constructor () {
-    this.#toKokiWrapper = new ToKoki()
-    this.#toGregorianWrapper = new ToGregorian()
-    this.#toJpEraWrapper = new ToJapaneseEra()
+    this.#KokiWrapper = new Koki()
+    this.#JpEraWrapper = new JapaneseEra()
   }
 
   /**
@@ -31,8 +28,8 @@ class TemporalConverter {
     const yearsAheadOfGregorian = 660
     const gregorianFromKoki = kokiYear - yearsAheadOfGregorian
     return gregorianFromKoki < 0
-      ? this.#toGregorianWrapper.KokiToBCE(gregorianFromKoki)
-      : this.#toGregorianWrapper.KokiToCe(gregorianFromKoki)
+      ? this.#KokiWrapper.KokiToBCE(gregorianFromKoki)
+      : this.#KokiWrapper.KokiToCe(gregorianFromKoki)
   }
 
   /**
@@ -48,8 +45,8 @@ class TemporalConverter {
     this.#CEVerifier(timeEra)
 
     return timeEra === 'BCE' || timeEra === 'BC'
-      ? this.#toKokiWrapper.preCommonEraToKoki(Number(gregorianYearToKoki))
-      : this.#toKokiWrapper.postCommonEraToKoki(Number(gregorianYearToKoki))
+      ? this.#KokiWrapper.preCommonEraToKoki(Number(gregorianYearToKoki))
+      : this.#KokiWrapper.postCommonEraToKoki(Number(gregorianYearToKoki))
   }
 
   /**
@@ -66,9 +63,7 @@ class TemporalConverter {
     this.#numberVerifier(month)
     this.#monthVerifier(month)
 
-    const formattedJpEra = this.#toJpEraWrapper.gregorianWithMonthToJpEra(gregorianYearToEra, month)
-
-    return formattedJpEra
+    return this.#JpEraWrapper.gregorianWithMonthToJpEra(gregorianYearToEra, month)
   }
 
   /**
@@ -81,7 +76,7 @@ class TemporalConverter {
    */
   LazyGregorianToFormattedJpEra (gregorianYearToEra) {
     this.#numberVerifier(gregorianYearToEra)
-    return this.#toJpEraWrapper.gregorianWithoutMonthToJpEra(gregorianYearToEra)
+    return this.#JpEraWrapper.gregorianWithoutMonthToJpEra(gregorianYearToEra)
   }
 
   /**
@@ -91,10 +86,11 @@ class TemporalConverter {
    *
    * @param {string} eraName - The name of the Era.
    * @param {number} eraYear - The year in the era.
+   * @returns {string} - Returns the converted year in "YYYY CE" format.
    */
   JpEraToFormattedGregorian (eraName, eraYear) {
     this.#numberVerifier(eraYear)
-    this.#toJpEraWrapper.eraNameVerifier(eraName)
+    return this.#JpEraWrapper.FromJpEraToGregorian(eraName, eraYear)
   }
 
   /**

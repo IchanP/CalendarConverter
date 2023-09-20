@@ -3,7 +3,7 @@ import { japaneseEras } from './japaneseeras'
 /**
  * A wrapper for converting to Japanese Era from various calendars.
  */
-export class ToJapaneseEra {
+export class JapaneseEra {
   #listOfEras
   /**
    * Initializes the era list.
@@ -78,6 +78,73 @@ export class ToJapaneseEra {
   }
 
   /**
+   * Covnerts from Japanese Era to Gregorian Calendar.
+   *
+   * @param {string} eraName - The name of the Era.
+   * @param {number} eraYear - The year in the era.
+   * @returns {string} - Returns the converted year in "YYYY CE" format.
+   */
+  FromJpEraToGregorian (eraName, eraYear) {
+    this.#eraNameVerifier(eraName)
+    this.#eraTimeFrameVerifier(eraName, eraYear)
+    const eraToConvertToGregorian = this.#findEraByName(eraName)
+    return eraToConvertToGregorian.startYear + (eraYear - 1) + ' CE'
+  }
+
+  /**
+   * Verifies that the passed string is a Japanese Era.
+   *
+   * @param {string} eraNameToVerify - The era to verify.
+   * @throws {Error} - Throws an error if the passed argument is not a Japanese era.
+   */
+  #eraNameVerifier (eraNameToVerify) {
+    if (typeof eraNameToVerify !== 'string') {
+      throw new Error('Expected argument to be of type string, received ' + typeof eraNameToVerify)
+    }
+    const eraExists = this.#findEraByName(eraNameToVerify)
+    if (!eraExists) {
+      throw new Error('Passed era name does not exist.')
+    }
+  }
+
+  /**
+   * Verifies that the passed year is in range of the era time period.
+   *
+   * @param {string} eraName - The name of the era to verify against.
+   * @param {number} eraYearToVerify - The year to verify is in range.
+   * @throws {Error} - Throws an error if the era year is not in range.
+   */
+  #eraTimeFrameVerifier (eraName, eraYearToVerify) {
+    if (eraYearToVerify < 1) {
+      throw new Error('The era year cannot be less than 1.')
+    }
+    if (eraName === 'Reiwa') {
+      return
+    }
+    const eraInformation = this.#findEraByName(eraName)
+    if (((eraInformation.endYear - eraInformation.startYear) + 1) < eraYearToVerify) {
+      throw new Error('The era year is out of the higher range.')
+    }
+  }
+
+  /**
+   *Attemps to find an era by name.
+   *
+   * @param {string} eraName - The name to identify the Era with.
+   * @returns {TimeFrame} - Returns the era.
+   */
+  #findEraByName (eraName) {
+    let foundEra
+    for (const era of this.#listOfEras) {
+      if (era.name === eraName) {
+        foundEra = era
+        break
+      }
+    }
+    return foundEra
+  }
+
+  /**
    * Formats a TimeFrame object to Japanasee Date from Gregorian year.
    *
    * @param {TimeFrame} timeEra - A TimeFrame object to convert to string.
@@ -86,27 +153,5 @@ export class ToJapaneseEra {
    */
   #formatFromGregorian (timeEra, gregorianYear) {
     return timeEra.name + ' ' + ((gregorianYear - timeEra.startYear) + 1)
-  }
-
-  /**
-   * Verifies that the passed string is a Japanese Era.
-   *
-   * @param {string} eraToVerify - The era to verify.
-   * @throws {error} - Throws an error if the passed argument is not a Japanese era.
-   */
-  eraNameVerifier (eraToVerify) {
-    if (typeof eraToVerify !== 'string') {
-      throw new Error('Expected argument to be of type string, received ' + typeof eraToVerify)
-    }
-    let eraExists = false
-    for (const eras of this.#listOfEras) {
-      if (eras.name === eraToVerify) {
-        eraExists = true
-        break
-      }
-    }
-    if (!eraExists) {
-      throw new Error('Passed era name does not exist.')
-    }
   }
 }
