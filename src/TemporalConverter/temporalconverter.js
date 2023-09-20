@@ -85,6 +85,19 @@ class TemporalConverter {
   }
 
   /**
+   * Converts from Japanese Era to Gregorian Calendar.
+   *
+   * Japanese Era information: https://en.wikipedia.org/wiki/Japanese_era_name .
+   *
+   * @param {string} eraName - The name of the Era.
+   * @param {number} eraYear - The year in the era.
+   */
+  JpEraToFormattedGregorian (eraName, eraYear) {
+    this.#numberVerifier(eraYear)
+    this.#toJpEraWrapper.eraNameVerifier(eraName)
+  }
+
+  /**
    * Helper method that verifies that the passed argument is an integer and of number type.
    *
    * @param {unknown} toVerify - The variable to verify.

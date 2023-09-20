@@ -87,4 +87,26 @@ export class ToJapaneseEra {
   #formatFromGregorian (timeEra, gregorianYear) {
     return timeEra.name + ' ' + ((gregorianYear - timeEra.startYear) + 1)
   }
+
+  /**
+   * Verifies that the passed string is a Japanese Era.
+   *
+   * @param {string} eraToVerify - The era to verify.
+   * @throws {error} - Throws an error if the passed argument is not a Japanese era.
+   */
+  eraNameVerifier (eraToVerify) {
+    if (typeof eraToVerify !== 'string') {
+      throw new Error('Expected argument to be of type string, received ' + typeof eraToVerify)
+    }
+    let eraExists = false
+    for (const eras of this.#listOfEras) {
+      if (eras.name === eraToVerify) {
+        eraExists = true
+        break
+      }
+    }
+    if (!eraExists) {
+      throw new Error('Passed era name does not exist.')
+    }
+  }
 }
