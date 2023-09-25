@@ -31,16 +31,16 @@ console.log(returnvalue)
 
 ### Testing
 
-A test report is included in the tests folder of this repo. To run these tests locally simply fork or download this repository, install the dependencies and run:
+A test report is included in the tests folder of this repository. To run these tests locally simply fork or download this repository, install the dependencies and run:
 
 ``` commandline
 npm run test
 ```
 
-### Issues
+### Japanese Era during Nanboku-chō period
 
-> Currently all Japanese Era conversions between 1329 and 1390 are done using the Northern Courts eras. Future release may allow an option to use Southern Court eras instead.
-> [For more information](https://en.wikipedia.org/wiki/Nanboku-ch%C5%8D_period)
+ Currently all Japanese Era conversions between 1329 and 1390, the Nanboku-chō period, are done using the Northern Courts eras. Future release may allow an option to use Southern Court eras instead.
+[For more information](https://en.wikipedia.org/wiki/Nanboku-ch%C5%8D_period)
 
 ### License
 
