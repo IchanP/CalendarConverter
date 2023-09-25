@@ -1,5 +1,6 @@
 import { Koki } from './Koki'
 import { JapaneseEra } from './JapaneseEra'
+import { Verifier } from './Verifier'
 
 /**
  * Wrapper for time and calendar conversion methods.
@@ -7,10 +8,12 @@ import { JapaneseEra } from './JapaneseEra'
 class TemporalConverter {
   #KokiWrapper
   #JpEraWrapper
+  #verifier
   /**
    * Constructs the field wrappers.
    */
   constructor () {
+    this.#verifier = new Verifier()
     this.#KokiWrapper = new Koki()
     this.#JpEraWrapper = new JapaneseEra()
   }
@@ -24,7 +27,7 @@ class TemporalConverter {
    * @returns {string} - Returns the converted year in "YYYY BCE/CE" format or an empty string.
    */
   KokiToFormattedGregorian (kokiYear) {
-    this.#numberVerifier(kokiYear)
+    this.#verifier.numberVerifier(kokiYear)
     const yearsAheadOfGregorian = 660
     const gregorianFromKoki = kokiYear - yearsAheadOfGregorian
     return gregorianFromKoki < 0
@@ -59,9 +62,9 @@ class TemporalConverter {
    * @returns {string} - Returns the Japanese Era in "Name YY" format.
    */
   GregorianToFormattedJpEra (gregorianYearToEra, month) {
-    this.#numberVerifier(gregorianYearToEra)
-    this.#numberVerifier(month)
-    this.#monthVerifier(month)
+    this.#verifier.numberVerifier(gregorianYearToEra)
+    this.#verifier.numberVerifier(month)
+    this.#verifier.monthVerifier(month)
 
     return this.#JpEraWrapper.gregorianWithMonthToJpEra(gregorianYearToEra, month)
   }
@@ -75,7 +78,7 @@ class TemporalConverter {
    * @returns {Array<string>} - Returns an array of the mathcing Japanese Era years in "Name YY" format. Returns an empty string on invalid input.
    */
   LazyGregorianToFormattedJpEra (gregorianYearToEra) {
-    this.#numberVerifier(gregorianYearToEra)
+    this.#verifier.numberVerifier(gregorianYearToEra)
     return this.#JpEraWrapper.gregorianWithoutMonthToJpEra(gregorianYearToEra)
   }
 
@@ -89,20 +92,8 @@ class TemporalConverter {
    * @returns {string} - Returns the converted year in "YYYY CE" format.
    */
   JpEraToFormattedGregorian (eraName, eraYear) {
-    this.#numberVerifier(eraYear)
+    this.#verifier.numberVerifier(eraYear)
     return this.#JpEraWrapper.FromJpEraToGregorian(eraName, eraYear)
-  }
-
-  /**
-   * Helper method that verifies that the passed argument is an integer and of number type.
-   *
-   * @param {unknown} toVerify - The variable to verify.
-   * @throws {Error} - Throws an error if the passed argument is not of type number and an integer.
-   */
-  #numberVerifier (toVerify) {
-    if (typeof toVerify !== 'number' || !Number.isInteger(toVerify)) {
-      throw new Error('Expected number as argument but received ' + typeof toVerify)
-    }
   }
 
   /**
@@ -117,18 +108,6 @@ class TemporalConverter {
       throw new Error('Expected string as argument but received' + typeof toVerify)
     } else if (!toVerify.match(regex)) {
       throw new Error('Expected string to match "BCE/CE/AD/BC" format.')
-    }
-  }
-
-  /**
-   * Verifies that the passed argument is a number between the values of 1 and 12.
-   *
-   * @param {number} month - The number to verify.
-   * @throws {Error} - Throws an error if the passed argument is not between 1 and 12.
-   */
-  #monthVerifier (month) {
-    if (month < 1 || month > 12) {
-      throw new Error('Expected month to be between 1 and 12, received ' + month)
     }
   }
 }

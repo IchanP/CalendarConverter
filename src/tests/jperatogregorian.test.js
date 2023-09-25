@@ -33,5 +33,5 @@ describe('jp-era-to-gregorian', () => {
     expect(temporalConverter.JpEraToFormattedGregorian('Kōnin', 10)).toBe('819 CE')
     expect(temporalConverter.JpEraToFormattedGregorian('Reiwa', 100)).toBe('2118 CE')
     expect(temporalConverter.JpEraToFormattedGregorian('Reiwa', 5)).toBe('2023 CE')
-})
+  })
 })
