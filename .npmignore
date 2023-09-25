@@ -136,3 +136,5 @@ tests/
 .jest.config.mjs
 jest.config.mjs
 .npmignore
+.eslintrc.json
+eslintrc.json
