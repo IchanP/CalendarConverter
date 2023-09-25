@@ -1,4 +1,4 @@
-import { TimeFrame } from '../TemporalConverter/TimeFrame'
+import { TimeFrame } from '../src/TemporalConverter/TimeFrame'
 
 describe('timeframe-class-test', () => {
   test('should throw when passed incorrect type as name argument', () => {

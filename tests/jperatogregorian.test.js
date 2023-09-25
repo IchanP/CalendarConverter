@@ -1,4 +1,4 @@
-import temporalConverter from '../TemporalConverter/temporalconverter'
+import temporalConverter from '../src/TemporalConverter/temporalconverter'
 
 describe('jp-era-to-gregorian', () => {
   test('should throw an error if the passed name is not a japanese era', () => {

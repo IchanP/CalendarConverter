@@ -1,4 +1,4 @@
-import temporalConverter from '../TemporalConverter/temporalconverter'
+import temporalConverter from '../src/TemporalConverter/temporalconverter'
 
 describe('gregorian-to-jp-era', () => {
   test('should throw error if month is invalid format', () => {

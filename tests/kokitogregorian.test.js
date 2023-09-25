@@ -1,4 +1,4 @@
-import temporalConverter from '../TemporalConverter/temporalconverter'
+import temporalConverter from '../src/TemporalConverter/temporalconverter'
 
 describe('koki-to-gregorian', () => {
   test('should throw error on falsy argument', () => {

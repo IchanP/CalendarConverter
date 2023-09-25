@@ -1,4 +1,4 @@
-import temporalConverter from '../TemporalConverter/temporalconverter'
+import temporalConverter from '../src/TemporalConverter/temporalconverter'
 
 // NOTE Kōki
 describe('gregorianCE-to-koki', () => {
