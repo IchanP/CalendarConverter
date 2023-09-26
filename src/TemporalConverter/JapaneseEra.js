@@ -30,7 +30,7 @@ export class JapaneseEra {
       if ((era.startYear === gregorianYear && era.startYear === era.endYear) && (era.startMonth > month || era.endMonth < month)) {
         throw new Error('Year and month does not match any existing eras')
       }
-      // Checks if it's on a year with an era change
+      // Matches if GregorianYear is on a year with an era change
       if ((era.endYear === gregorianYear && era.endMonth > month)) {
         matchingEra = era
         break
