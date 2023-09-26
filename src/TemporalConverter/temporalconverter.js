@@ -27,7 +27,7 @@ class TemporalConverter {
    * @returns {string} - Returns the converted year in "YYYY BCE/CE" format or an empty string.
    */
   KokiToFormattedGregorian (kokiYear) {
-    this.#verifier.numberVerifier(kokiYear)
+    this.#verifier.verifyNumber(kokiYear)
     const yearsAheadOfGregorian = 660
     const gregorianFromKoki = kokiYear - yearsAheadOfGregorian
     return gregorianFromKoki < 0
@@ -62,9 +62,9 @@ class TemporalConverter {
    * @returns {string} - Returns the Japanese Era in "Name YY" format.
    */
   GregorianToFormattedJpEra (gregorianYearToEra, month) {
-    this.#verifier.numberVerifier(gregorianYearToEra)
-    this.#verifier.numberVerifier(month)
-    this.#verifier.monthVerifier(month)
+    this.#verifier.verifyNumber(gregorianYearToEra)
+    this.#verifier.verifyNumber(month)
+    this.#verifier.verifyMonth(month)
 
     return this.#JpEraWrapper.gregorianWithMonthToJpEra(gregorianYearToEra, month)
   }
@@ -78,7 +78,7 @@ class TemporalConverter {
    * @returns {Array<string>} - Returns an array of the mathcing Japanese Era years in "Name YY" format. Returns an empty string on invalid input.
    */
   LazyGregorianToFormattedJpEra (gregorianYearToEra) {
-    this.#verifier.numberVerifier(gregorianYearToEra)
+    this.#verifier.verifyNumber(gregorianYearToEra)
     return this.#JpEraWrapper.gregorianWithoutMonthToJpEra(gregorianYearToEra)
   }
 
@@ -92,7 +92,7 @@ class TemporalConverter {
    * @returns {string} - Returns the converted year in "YYYY CE" format.
    */
   JpEraToFormattedGregorian (eraName, eraYear) {
-    this.#verifier.numberVerifier(eraYear)
+    this.#verifier.verifyNumber(eraYear)
     return this.#JpEraWrapper.FromJpEraToGregorian(eraName, eraYear)
   }
 

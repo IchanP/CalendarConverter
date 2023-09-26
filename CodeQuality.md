@@ -16,17 +16,23 @@
 ### Reflection of Ch.2
 
 
-
 ## Chapter 3
 
-| Method | Length | // | Rule | Reflection |
+| Method | Length | Comment Lines | Rule | Reflection |
 | --- | --- | --- | --- | --- |
-| gregorianWithMonthToJpEra | 29 | 2 |  | |
-| gregorianWithoutMonthToJpEra | 19 | 1 |  | |
-| eraTimeFrameVerifier | 11 | | | |
-| findEraByName | 9 || | |
-| eraNameVerifier | 8 | | | |
+| gregorianWithMonthToJpEra | 29 | 2 | Do One Thing | Performs validation as well. |
+| | | | Small! | Could easily be broken up into 2 smaller functions, one for the validation and one for its main purpose. |
+| | | | Blocks & Indenting | Has a nested structure of a for loop and several if statements |
+| | | |  One Level of Abstraction | Mixes several low level if statements with a high abstraction return statement. |
+| gregorianWithoutMonthToJpEra | 19 | 1 | Do One Thing | Does several things. I can easily see this being broken out into 2 or 3 different functions. |
+| | | | Small! | Clearly a very bloated function. Breaking out several of the things it does into functions would drastically reduce it into maybe 3-4 lines |
+| | | | One Level of Abstraction | Mixes high abstract function calls with low level abstraction if checks. Either break out the if checks into seperate ``is`` functions or as mentioned above, restructure the function into only making high abstraction calls. |
+| verifyEraTimeFrame | 11 | | One Level of Abstraction | This funciton clearly mixes level of abstractions with having a high to intermediate abstraction level followed by a low level if statement. |
+| | | | Do One Thing | The function both validates the timeframerange and fetches information about the era through one of the passed arguments. |
+| findEraByName | 9 | | Blocks & Indenting | This function has a nested if statement inside its for loop. The if statement could have been broken out into its own function. |
+| verifyEraName | 8 | | Small! | This function currently checks two seperate things. It checks that the era name exists and that the passed argument is of type String. Factoring out the typechecking to a seperate function would reduce the line length by 2, making it smaller. |
+| | | | Do one thing | The function validates that the passed argument is a string and verifies that the passed argument exists in the era list. These should be seperated. |
 
 ### Reflection of Ch.3
 
-As the two longest functions have comments explaining things inside of them I almost want to draw a correlation between function length and understandability of the code...
+As the two longest functions have comments explaining things inside of them I almost want to draw a correlation between function length and understandability of the code... This is obvious hello? xddd

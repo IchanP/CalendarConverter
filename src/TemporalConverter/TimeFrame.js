@@ -18,12 +18,12 @@ export class TimeFrame {
     if (typeof name !== 'string') {
       throw new Error('Expected paramater to be of type string, got ' + typeof name)
     }
-    verifier.numberVerifier(startYear)
-    verifier.numberVerifier(endYear)
-    verifier.numberVerifier(startMonth)
-    verifier.numberVerifier(endMonth)
-    verifier.monthVerifier(startMonth)
-    verifier.monthVerifier(endMonth)
+    verifier.verifyNumber(startYear)
+    verifier.verifyNumber(endYear)
+    verifier.verifyNumber(startMonth)
+    verifier.verifyNumber(endMonth)
+    verifier.verifyMonth(startMonth)
+    verifier.verifyMonth(endMonth)
 
     this.name = name
     this.startYear = startYear

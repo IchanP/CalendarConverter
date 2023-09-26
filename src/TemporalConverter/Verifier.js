@@ -8,7 +8,7 @@ export class Verifier {
    * @param {unknown} toVerify - The variable to verify.
    * @throws {Error} - Throws an error if the passed argument is not of type number and an integer.
    */
-  numberVerifier (toVerify) {
+  verifyNumber (toVerify) {
     if (typeof toVerify !== 'number' || !Number.isInteger(toVerify)) {
       throw new Error('Expected number as argument but received ' + typeof toVerify)
     }
@@ -20,7 +20,7 @@ export class Verifier {
    * @param {number} month - The number to verify.
    * @throws {Error} - Throws an error if the passed argument is not between 1 and 12.
    */
-  monthVerifier (month) {
+  verifyMonth (month) {
     if (month < 1 || month > 12) {
       throw new Error('Expected month to be between 1 and 12, received ' + month)
     }
