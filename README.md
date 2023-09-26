@@ -5,7 +5,7 @@
 ## Installation
 
 ``` JS
-npm install temporalconverter.
+npm install temporalconverter
 ```
 
 ## Import example

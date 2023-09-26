@@ -15,6 +15,15 @@
 
 ### Reflection of Ch.2
 
+The ideas and rules that are presented in Meaningful Names I largely agree with. However the presentation of these rules leave a lot to be desired, being quite verbose and simply smothering you in examples rather than provoking thought. I feel like a lot of these rules are to me quite obvious in hindsight but something I have not followed so well previously.
+
+A quick look in my 1DV613 source code reveals several instances where I have named a function which is supposed to get something from an array different things, such as ”grabX” or ”getX”, thus violating the Pick One Word Per Concept rule. I do wonder if this rule in particular becomes harder to follow as you swap between contexts in a larger code base. Remembering what you wrote 2 weeks ago can be quite difficult if you’ve moved on to a different part of the project and feel ”finished” with the previous part.
+
+Something that I believe was missed in the ”Use Searchable Names” rule is to avoid naming two variables the same, in the same file. I feel that it is quite easy to fall into this trap as a certain word may be a good descriptor for several different function paramaters in the same file. Should the developer fall into this trap the word instantly becomes less searchable.
+
+Some of these rules very clearly support or perhaps even make the other rule redundant. If we see to the rule ”Use Pronouncable Names” and the rules ”Use Problem Solution/Domain Names”, the Pronouncable Names rule is made redundant by the other two rules. I believe there are very few instances if any where the pronouncable names rule would not be fulfilled by the other two.
+
+Overall I believe that the entire chapter and these rules can be summed up in 3 simple statements: don’t encode, be distinct and be descriptive.
 
 ## Chapter 3
 
