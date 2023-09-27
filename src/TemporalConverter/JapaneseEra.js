@@ -85,8 +85,8 @@ export class JapaneseEra {
    * @returns {string} - Returns the converted year in "YYYY CE" format.
    */
   FromJpEraToGregorian (eraName, eraYear) {
-    this.#eraNameVerifier(eraName)
-    this.#eraTimeFrameVerifier(eraName, eraYear)
+    this.#verifyEraName(eraName)
+    this.#verifyEraTimeFrame(eraName, eraYear)
     const eraToConvertToGregorian = this.#findEraByName(eraName)
     return eraToConvertToGregorian.startYear + (eraYear - 1) + ' CE'
   }
@@ -97,7 +97,7 @@ export class JapaneseEra {
    * @param {string} eraNameToVerify - The era to verify.
    * @throws {Error} - Throws an error if the passed argument is not a Japanese era.
    */
-  #eraNameVerifier (eraNameToVerify) {
+  #verifyEraName (eraNameToVerify) {
     if (typeof eraNameToVerify !== 'string') {
       throw new Error('Expected argument to be of type string, received ' + typeof eraNameToVerify)
     }
@@ -114,7 +114,7 @@ export class JapaneseEra {
    * @param {number} eraYearToVerify - The year to verify is in range.
    * @throws {Error} - Throws an error if the era year is not in range.
    */
-  #eraTimeFrameVerifier (eraName, eraYearToVerify) {
+  #verifyEraTimeFrame (eraName, eraYearToVerify) {
     if (eraYearToVerify < 1) {
       throw new Error('The era year cannot be less than 1.')
     }

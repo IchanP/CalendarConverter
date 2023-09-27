@@ -45,7 +45,7 @@ class TemporalConverter {
    * @returns {string} - Returns the converted year in "Kōki YYYY", "Pre-Kōki YYYY" format.
    */
   GregorianToFormattedKoki (gregorianYearToKoki, timeEra) {
-    this.#CEVerifier(timeEra)
+    this.#verifyCE(timeEra)
 
     return timeEra === 'BCE' || timeEra === 'BC'
       ? this.#KokiWrapper.preCommonEraToKoki(Number(gregorianYearToKoki))
@@ -102,7 +102,7 @@ class TemporalConverter {
    * @param {unknown} toVerify - The variable to verify.
    * @throws {Error} - Throws an error if the passed argument is not of type string and in BCE/CE format.
    */
-  #CEVerifier (toVerify) {
+  #verifyCE (toVerify) {
     const regex = /(BCE|CE|BC|AD)/
     if (typeof toVerify !== 'string') {
       throw new Error('Expected string as argument but received' + typeof toVerify)

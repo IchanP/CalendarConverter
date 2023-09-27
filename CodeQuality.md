@@ -44,4 +44,16 @@ Overall I believe that the entire chapter and these rules can be summed up in 3 
 
 ### Reflection of Ch.3
 
-As the two longest functions have comments explaining things inside of them I almost want to draw a correlation between function length and understandability of the code... This is obvious hello? xddd
+As with Chapter 2 ”Meaningful Names” I largely agree with everything that the chapter states. I do wholeheartedly believe that the ”Small!” rule has been taken to the extreme and that not allowing any nested structures makes writing code quite frustrating, as I attempted to follow these rules in my module – something I ended up dropping in the end.
+
+I once again decided to look in my 1DV613 project, and I found that essentially all of my functions only take 1 or 2 arguments, components not withstanding, with the majority of the functions being fairly small. I do believe that if you follow the rules of keeping a function on the same abstraction level, ”One Level of Abstraction per Function” and ”Do One Thing” the number of arguments will be kept naturally low. Sending in a number of low level abstraction arguments into a function that is on a high level of abstraction does not make a lot of sense, and in fact breaks the ” One Level of Abstraction” rule. Just as in ”Meaningful Names” the rules here support the others.  
+
+This is not to say that I completely agree with the idea of one level of abstraction, while it does have the potential to increase the understandability and readability of the code, if the naming is not up to par or is misleading it could instead achieve the complete opposite, while also creating  a scenario where a developer has to dive through very many leyers of abstraction to find actual code implementation.
+
+### Reflection Overall
+
+I previously talked a little about my code quality in the 1DV613 course. In this module I made a conscious attempt to write small functions and use descriptive names. The result of this is are the reflections mentioned above. Drawing attention to how similarly named the public functions are, it is a result of an attempt at applying “Pick One Word Per Concept” where the Formatted key word is intended to reveal the return type. This resulted in functions which varied in very small ways, something which is to be avoided. In an attempt to achieve information I instead achieved disinformation. The reason for this is I believe is a half-hearted attempt at following the rules, as none of the functions are in fact verbs.
+
+My largest takeaway from the Functions chapter is the mixing of abstraction levels in functions. Achieving a consistent abstraction level is an easy way of increasing the understandability of code, to a reasonable level. Once again using one of the functions in this module as an example, ``gregorianWithMonthToJpEra``, I went back and looked at the if statements which are done using low level abstraction. I do not remember which if statement does what, which could easily have been avoided if they were their own verifier function instead.
+
+The author describes his functions as first being big and disorganized, until they are later refined into following the rules he has laid out. This was the workflow I attempted in this module, something I have not previously bothered doing, and I ended up liking this workflow, and way of writing code.

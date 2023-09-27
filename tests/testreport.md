@@ -58,3 +58,28 @@ npm run test
     √ lazy should return single era if year falls in interval (6 ms)
     √ lazy should throw if no era is found (6 ms)
     √ lazy should return edge years on no continuity (2 ms)](reportimages/testreport-1/gregtojpera.png)
+
+## Japanese Era variable
+
+>Test code can be found in ``eratimes.test.js``
+
+![ PASS  tests/eratimes.test.js
+  Era continuity, japaneseeras.js
+    √ the eras from 3rd element should have continuity (98 ms)](reportimages/testreport-1/jpeera.png)
+
+## JapaneseEraToGregorian method
+
+> Test code can be found in ``jpeeratogregorian.test.js``
+
+![  jp-era-to-gregorian
+    √ should throw an error if the passed name is not a japanese era (51 ms)
+    √ should throw when passed invalid name type (10 ms)
+    √ should throw when passed era year is out of range (5 ms)
+    √ should not throw on 1 if era ends same year as it started (1 ms)
+    √ should not throw when Reiwa is out of higher range (3 ms)
+    √ should return correct values (2 ms)](reportimages/testreport-1/jpeeratogreg.png)
+
+## Test Results & Coverage
+
+![Test Suites: 6 passed, 6 total
+Tests:       32 passed, 32 total](reportimages/testreport-1/testreport.png)
