@@ -44,14 +44,10 @@ export class JapaneseEra {
    */
   gregorianWithoutMonthToJpEra (gregorianYear) {
     const foundEras = this.#findErasByYear(gregorianYear)
-    const japaneseDates = []
-    for (const foundEra of foundEras) {
-      japaneseDates.push(this.#formatFromGregorian(foundEra, gregorianYear))
+    if (!foundEras.length) {
+      this.#eraDoesNotExist()
     }
-    if (japaneseDates.length === 0) {
-      throw new Error('Year does not match any existing eras')
-    }
-    return japaneseDates
+    return foundEras.map((era) => this.#formatFromGregorian(era, gregorianYear))
   }
 
   /**
@@ -253,6 +249,6 @@ export class JapaneseEra {
    * @throws {Error} - Notifies the user that the passed month and year does not match any Japanese Eras.
    */
   #eraDoesNotExist () {
-    throw new Error('Year and month does not match any existing eras')
+    throw new Error('The passed arguments do not match any existing eras.')
   }
 }
