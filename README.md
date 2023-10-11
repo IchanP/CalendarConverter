@@ -17,7 +17,7 @@ import temporalConverter from 'temporalconverter'
 
 const kokiYear = 500
 const returnvalue = temporalConverter.KokiToFormattedGregorian(kokiYear)
-console.log(returnvalue)
+console.log(returnvalue) // 160 BCE
 ```
 
 ### Using commonJS
@@ -25,8 +25,9 @@ console.log(returnvalue)
 ``` JS
 const temporalConverter = require('temporalconverter')
 
+const kokiYear = 500
 const returnvalue = temporalConverter.KokiToFormattedGregorian(500)
-console.log(returnvalue)
+console.log(returnvalue) // 160 BCE
 ```
 
 ### Testing
