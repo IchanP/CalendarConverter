@@ -1,4 +1,4 @@
-import { Verifier } from './Verifier'
+import { Verifier } from './Verifier.js'
 
 /**
  * Builds a timeframe with year and month.

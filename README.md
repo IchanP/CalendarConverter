@@ -15,7 +15,8 @@ npm install temporalconverter
 ``` JS
 import temporalConverter from 'temporalconverter'
 
-const returnvalue = temporalConverter.KokiToFormattedGregorian(500)
+const kokiYear = 500
+const returnvalue = temporalConverter.KokiToFormattedGregorian(kokiYear)
 console.log(returnvalue)
 ```
 

@@ -1,5 +1,5 @@
-import { TimeFrame } from './TimeFrame'
-import { japaneseEras } from './japaneseeras'
+import { TimeFrame } from './TimeFrame.js'
+import { japaneseEras } from './japaneseeras.js'
 /**
  * A wrapper for converting to Japanese Era from various calendars.
  */

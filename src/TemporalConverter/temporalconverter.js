@@ -1,6 +1,6 @@
-import { Koki } from './Koki'
-import { JapaneseEra } from './JapaneseEra'
-import { Verifier } from './Verifier'
+import { Koki } from './Koki.js'
+import { JapaneseEra } from './JapaneseEra.js'
+import { Verifier } from './Verifier.js'
 
 /**
  * Wrapper for time and calendar conversion methods.
