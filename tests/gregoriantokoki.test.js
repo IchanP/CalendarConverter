@@ -42,5 +42,8 @@ describe('gregorianCE-to-koki', () => {
     expect(temporalConverter.GregorianToFormattedKoki(500, 'AD')).toBe('Kōki 1160')
     expect(temporalConverter.GregorianToFormattedKoki(2023, 'AD')).toBe('Kōki 2683')
     expect(temporalConverter.GregorianToFormattedKoki(1, 'AD')).toBe('Kōki 661')
+  }) 
+  test('should throw error if year is invalid type', () => {
+    expect(() => temporalConverter.GregorianToFormattedKoki(true, 'AD')).toThrow()
   })
 })

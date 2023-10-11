@@ -1,6 +1,6 @@
 import { Koki } from './Koki.js'
 import { JapaneseEra } from './JapaneseEra.js'
-import { Verifier } from './Verifier.js'
+import { GregorianVerifier } from './Verifiers/GregorianVerifier.js'
 
 /**
  * Wrapper for time and calendar conversion methods.
@@ -13,7 +13,7 @@ class TemporalConverter {
    * Constructs the field wrappers.
    */
   constructor () {
-    this.#verifier = new Verifier()
+    this.#verifier = new GregorianVerifier()
     this.#KokiWrapper = new Koki()
     this.#JpEraWrapper = new JapaneseEra()
   }
@@ -30,7 +30,7 @@ class TemporalConverter {
     this.#verifier.verifyNumber(kokiYear)
     const yearsAheadOfGregorian = 660
     const gregorianFromKoki = kokiYear - yearsAheadOfGregorian
-    return gregorianFromKoki < 0
+    return gregorianFromKoki < 0 // TODO one abstraction level?
       ? this.#KokiWrapper.KokiToBCE(gregorianFromKoki)
       : this.#KokiWrapper.KokiToCe(gregorianFromKoki)
   }
@@ -45,9 +45,11 @@ class TemporalConverter {
    * @returns {string} - Returns the converted year in "Kōki YYYY", "Pre-Kōki YYYY" format.
    */
   GregorianToFormattedKoki (gregorianYearToKoki, timeEra) {
-    this.#verifyCE(timeEra)
+    this.#verifier.verifyValidYearType(gregorianYearToKoki)
+    this.#verifier.verifyString(timeEra)
+    this.#verifier.verifyValidEraFormat(timeEra)
 
-    return timeEra === 'BCE' || timeEra === 'BC'
+    return this.#verifier.isPreHumanEra(timeEra)
       ? this.#KokiWrapper.preCommonEraToKoki(Number(gregorianYearToKoki))
       : this.#KokiWrapper.postCommonEraToKoki(Number(gregorianYearToKoki))
   }
@@ -94,21 +96,6 @@ class TemporalConverter {
   JpEraToFormattedGregorian (eraName, eraYear) {
     this.#verifier.verifyNumber(eraYear)
     return this.#JpEraWrapper.FromJpEraToGregorian(eraName, eraYear)
-  }
-
-  /**
-   * Verifies that the passed argument is of type string and in BCE/CE format.
-   *
-   * @param {unknown} toVerify - The variable to verify.
-   * @throws {Error} - Throws an error if the passed argument is not of type string and in BCE/CE format.
-   */
-  #verifyCE (toVerify) {
-    const regex = /(BCE|CE|BC|AD)/
-    if (typeof toVerify !== 'string') {
-      throw new Error('Expected string as argument but received' + typeof toVerify)
-    } else if (!toVerify.match(regex)) {
-      throw new Error('Expected string to match "BCE/CE/AD/BC" format.')
-    }
   }
 }
 const temporalConverter = new TemporalConverter()

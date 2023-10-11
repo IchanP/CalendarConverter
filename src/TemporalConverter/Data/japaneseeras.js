@@ -1,4 +1,4 @@
-import { TimeFrame } from './TimeFrame.js'
+import { TimeFrame } from '../TimeFrame.js'
 
 // Using Wikipedia as source https://en.wikipedia.org/wiki/Japanese_era_name
 // On month contradictions the era that followed adapted its start month to the end of the previous era. Exception being the start of the Nanoku-chõ period.

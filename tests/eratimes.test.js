@@ -1,4 +1,4 @@
-import { japaneseEras } from '../src/TemporalConverter/japaneseeras'
+import { japaneseEras } from '../src/TemporalConverter/Data/japaneseeras'
 
 describe('Era continuity, japaneseeras.js', () => {
   test('the eras from 3rd element should have continuity', () => {

@@ -1,4 +1,4 @@
-import { Verifier } from './Verifier.js'
+import { Verifier } from './Verifiers/Verifier.js'
 
 /**
  * Builds a timeframe with year and month.
@@ -15,9 +15,8 @@ export class TimeFrame {
    */
   constructor (name, startYear, endYear, startMonth, endMonth) {
     const verifier = new Verifier()
-    if (typeof name !== 'string') {
-      throw new Error('Expected paramater to be of type string, got ' + typeof name)
-    }
+
+    verifier.verifyString(name)
     verifier.verifyNumber(startYear)
     verifier.verifyNumber(endYear)
     verifier.verifyNumber(startMonth)

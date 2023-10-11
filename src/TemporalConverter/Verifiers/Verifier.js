@@ -1,5 +1,5 @@
 /**
- * Verifies month and number.
+ * Performs general verifications such as type and range checks.
  */
 export class Verifier {
   /**
@@ -23,6 +23,18 @@ export class Verifier {
   verifyMonth (month) {
     if (month < 1 || month > 12) {
       throw new Error('Expected month to be between 1 and 12, received ' + month)
+    }
+  }
+
+  /**
+   * Helper emthod that verifies that the passed argument is of type string.
+   *
+   * @param {unknown} toVerify - The variable to verify.
+   * @throws {Error} - Throws an error if the passed argument is not of type string.
+   */
+  verifyString (toVerify) {
+    if (typeof toVerify !== 'string') {
+      throw new Error('Expected paramater to be of type string, got ' + typeof toVerify)
     }
   }
 }
