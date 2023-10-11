@@ -40,19 +40,10 @@ export class JapaneseEra {
    * Converts from Gregorian to Japanese Era year, excluding month.
    *
    * @param {number} gregorianYear - The Gregorian year.
-   * @returns {Array<string>} - Returns the matching Japanese years, in
+   * @returns {Array<string>} - Returns the matching Japanese years, as an array of strings, formatted as "Name YY".
    */
   gregorianWithoutMonthToJpEra (gregorianYear) {
-    const foundEras = this.#listOfEras.filter((era) => {
-      if (era.startYear <= gregorianYear && gregorianYear <= era.endYear) {
-        return era
-      }
-      // Catch Reiwa in the future
-      if (gregorianYear > era.endYear && era.endYear === new Date().getFullYear()) {
-        return era
-      }
-      return undefined
-    })
+    const foundEras = this.#findErasByYear(gregorianYear)
     const japaneseDates = []
     for (const foundEra of foundEras) {
       japaneseDates.push(this.#formatFromGregorian(foundEra, gregorianYear))
@@ -116,11 +107,30 @@ export class JapaneseEra {
       if (this.#isNewEraOnSameYear(era, gregorianYear, month)) {
         return era
       }
-      if (this.#isWithinEraRange(era, gregorianYear)) {
+      if (this.#isWithinEraRangeLessThanEndYear(era, gregorianYear)) {
         return era
       }
     }
     this.#eraDoesNotExist()
+  }
+
+  /**
+   * Finds the matching Japanese Era(s) by the passed year value.
+   *
+   * @param {number} gregorianYear - The year to find the eras by.
+   * @returns {Array<TimeFrame>} - Returns the matching eras in an array, with the first occuring Era as the first element.
+   */
+  #findErasByYear (gregorianYear) {
+    // TODO might break this into two functions again, with the inner function being a different function.
+    return this.#listOfEras.filter((era) => {
+      if (this.#isWithinEraRange(era, gregorianYear)) {
+        return era
+      }
+      if (this.#isCurrentEra(gregorianYear, era)) {
+        return era
+      }
+      return undefined
+    })
   }
 
   /**
@@ -153,7 +163,7 @@ export class JapaneseEra {
    * @returns {boolean} - Returns true if the passed arguments matches the current era, false otherwise.
    */
   #isCurrentEra (gregorianYear, era) {
-    return gregorianYear > new Date().getFullYear() || (gregorianYear > era.endYear && era.endYear === new Date().getFullYear())
+    return (gregorianYear > era.endYear && era.endYear === new Date().getFullYear())
   }
 
   /**
@@ -218,11 +228,23 @@ export class JapaneseEra {
    * Checks whether the Gregorian Year is within an era year range.
    *
    * @param {TimeFrame} era - The era to check against.
-   * @param {number} gregorianYear - The Gregorian Year to match with.
+   * @param {number} gregorianYear - The Gregorian Year to match with, may be equal to start year of an era, but not end year.
+   * @returns {boolean} - Returns true if the Gregorian Year is within range, otherwise false.
+   */
+  #isWithinEraRangeLessThanEndYear (era, gregorianYear) {
+    // TODO maybe rename this?
+    return (era.startYear <= gregorianYear && gregorianYear < era.endYear)
+  }
+
+  /**
+   * Checks whether the Gregorian Year is within an era year range.
+   *
+   * @param {TimeFrame} era - The era to compare Gregorian Year against.
+   * @param {number} gregorianYear - The Gregorian Year to match to an Era, may be equal to start & end year of an era.
    * @returns {boolean} - Returns true if the Gregorian Year is within range, otherwise false.
    */
   #isWithinEraRange (era, gregorianYear) {
-    return (era.startYear <= gregorianYear && gregorianYear < era.endYear)
+    return (era.startYear <= gregorianYear && gregorianYear <= era.endYear)
   }
 
   /**
