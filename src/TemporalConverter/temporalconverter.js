@@ -77,7 +77,7 @@ class TemporalConverter {
    * Japanese Era information: https://en.wikipedia.org/wiki/Japanese_era_name .
    *
    * @param {number} gregorianYearToEra - The gregorian year in integer format.
-   * @returns {Array<string>} - Returns an array of the mathcing Japanese Era years in "Name YY" format. Returns an empty string on invalid input.
+   * @returns {Array<string>} - Returns an array of the mathcing Japanese Era years in "Name YY" format.
    */
   LazyGregorianToFormattedJpEra (gregorianYearToEra) {
     this.#verifier.verifyNumber(gregorianYearToEra)
@@ -96,6 +96,46 @@ class TemporalConverter {
   JpEraToFormattedGregorian (eraName, eraYear) {
     this.#verifier.verifyNumber(eraYear)
     return this.#JpEraWrapper.FromJpEraToGregorian(eraName, eraYear)
+  }
+
+  // NOTE these are just wrappers for the above methods, but with different names.
+
+  /**
+   * Converts from Gregorian Calendar to all matching Japanese Era years.
+   *
+   * Japanese Era information: https://en.wikipedia.org/wiki/Japanese_era_name .
+   *
+   * @param {number} gregorianYearToEra - The gregorian year in integer format.
+   * @returns {Array<string>} - Returns an array of the mathcing Japanese Era years in "Name YY" format.
+   */
+  FirstJpErasFromGregorian (gregorianYearToEra) {
+    return this.LazyGregorianToFormattedJpEra(gregorianYearToEra)
+  }
+
+  /**
+   * Converts from the Gregorian Calendar to Kōki, Japanese Imperial Year.
+   *
+   * Gregorian Calendar information: https://en.wikipedia.org/wiki/Gregorian_calendar .
+   *
+   * @param {number} gregorianYearToKoki - The Gregorian year in integer format.
+   * @param {string} timeEra - The era of the year, accepted args: "BCE/CE/BC/AD".
+   * @returns {string} - Returns the converted year in "Kōki YYYY", "Pre-Kōki YYYY" format.
+   */
+  KokiFromGregorian (gregorianYearToKoki, timeEra) {
+    return this.GregorianToFormattedKoki(gregorianYearToKoki, timeEra)
+  }
+
+  /**
+   * Converts from Gregorian Calendar to Japanese Era.
+   *
+   * Japanese Era information: https://en.wikipedia.org/wiki/Japanese_era_name .
+   *
+   * @param {number} gregorianYearToEra - The Gregorian year in integer format.
+   * @param {number} month The month in integer format.
+   * @returns {string} - Returns the Japanese Era in "Name YY" format.
+   */
+  JpEraFromGregorian (gregorianYearToEra, month) {
+    return this.GregorianToFormattedJpEra(gregorianYearToEra, month)
   }
 }
 const temporalConverter = new TemporalConverter()
