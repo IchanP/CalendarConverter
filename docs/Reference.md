@@ -18,7 +18,7 @@ Converts from Gregorian Calendar to all matching Japanese Era years.
 
 #### Note
 
-You may consider this the replacement for the now deprecated ``LazyGregorianToFormattedJpEra`` // TODO link to this inside the doc once ur done.
+You may consider this the replacement for the now deprecated [``LazyGregorianToFormattedJpEra``](#lazygregoriantoformattedjpera-deprecated)
 
 ### Example with two return values
 
@@ -58,7 +58,7 @@ Converts from the Gregorian Calendar to Kōki, Japanese Imperial Year.
 
 ### Note
 
-You may consider this the replacement for the now deprecated ``GregorianToFormattedKoki`` // TODO link to this inside the doc once ur done.
+You may consider this the replacement for the now deprecated [``GregorianToFormattedKoki``](#gregoriantoformattedkoki-deprecated)
 
 ### Example
 
@@ -89,7 +89,7 @@ Converts from Gregorian Calendar to Japanese Era.
 
 ### Note
 
-You may consider this the replacement for the now deprecated ``GregorianToFormattedJpEra`` // TODO link to this inside the doc once ur done.
+You may consider this the replacement for the now deprecated [``GregorianToFormattedJpEra``](#gregoriantoformattedjpera-deprecated)
 
 ### Example
 
