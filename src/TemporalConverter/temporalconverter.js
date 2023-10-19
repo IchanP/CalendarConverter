@@ -101,7 +101,7 @@ class TemporalConverter {
     return this.#JpEraWrapper.gregorianWithoutMonthToJpEra(gregorianYearToEra)
   }
 
-  // NOTE these are just wrappers for the above methods, but with different names.
+  // NOTE these are just wrappers for some of the above methods, but with different names.
 
   /**
    * Converts from Gregorian Calendar to all matching Japanese Era years.
