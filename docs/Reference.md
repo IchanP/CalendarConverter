@@ -2,6 +2,20 @@
 
 This document is meant to detail the public methods available in this module.
 
+## Index
+
+* [FirstJpErasFromGregorian](#firstjperasfromgregorian)
+* [KokiFromGregorian](#kokifromgregorian)
+* [JpEraFromGregorian](#jperafromgregorian)
+* [KokiToFormattedGregorian](#kokitoformattedgregorian)
+* [JpEraToFormattedGregorian](#jperatoformattedgregorian)
+
+## Deprecated methods
+
+* [GregorianToFormattedKoki](#gregoriantoformattedkoki-deprecated)
+* [GregorianToFormattedJpEra](#gregoriantoformattedjpera-deprecated)
+* [LazyGregorianToFormattedJpEra](#lazygregoriantoformattedjpera-deprecated)
+
 ## ``FirstJpErasFromGregorian``
 
 ### Description
